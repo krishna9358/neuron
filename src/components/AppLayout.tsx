@@ -16,7 +16,7 @@ export const AppLayout = ({ children }: { children: ReactNode }) => {
             <div className="fixed inset-0 z-0 pointer-events-none bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/5 via-background to-background" />
 
             {/* Main Content Container with Borders */}
-            <div className="relative z-10 w-full max-w-[1400px] border-x border-border/40 min-h-screen flex flex-col bg-background/30 backdrop-blur-[2px] shadow-2xl shadow-black">
+            <div className="relative z-10 w-full max-w-[1100px] border-x border-border/40 min-h-screen flex flex-col bg-background/30 backdrop-blur-[2px] shadow-2xl shadow-black">
                 {children}
             </div>
         </div>

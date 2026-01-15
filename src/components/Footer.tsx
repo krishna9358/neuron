@@ -6,7 +6,7 @@ const footerLinks = [
   { label: "GitHub", badge: "60K", href: "https://github.com" },
   { label: "Docs", href: "/docs" },
   { label: "Changelog", href: "#changelog" },
-  { label: "Discord", href: "https://discord.gg/k_krishna." },
+  { label: "Discord", href: "https://discord.gg/k_krishna" },
   { label: "X", href: "https://x.com" },
 ];
 
@@ -18,29 +18,28 @@ const bottomLinks = [
 
 const Footer = () => {
   return (
-    <footer className="">
+    <footer className="border-t border-border">
       {/* Newsletter Section */}
       <ScrollReveal>
-        <div className="container mx-auto max-w-4xl py-16 px-4">
-          <h2 className="text-lg md:text-xl font-semibold mb-2 font-mono">
+        <div className="container mx-auto px-4 py-24 flex flex-col items-center text-center">
+          <h2 className="text-xl font-bold mb-4 font-mono tracking-tight">
             Be the first to know when we release new products
           </h2>
-          <p className="text-muted-foreground mb-8">
+          <p className="text-muted-foreground mb-10 font-mono">
             Join the waitlist for early access.
           </p>
 
           {/* Email Input with Subscribe Button */}
-          <div className="relative max-w-2xl">
-            <div className="flex border border-border bg-background">
+          <div className="w-full max-w-xl">
+            <div className="flex p-1 border border-border bg-background rounded-md">
               <Input
                 type="email"
                 placeholder="Email address"
-                className="flex-1 border-0 bg-transparent h-14 px-4 text-base focus-visible:ring-0 focus-visible:ring-offset-0 placeholder:text-muted-foreground"
+                className="flex-1 border-0 bg-transparent h-10 px-4 text-base focus-visible:ring-0 focus-visible:ring-offset-0 placeholder:text-muted-foreground font-mono"
               />
               <Button
                 type="submit"
-                variant="outline"
-                className="h-10 px-6 m-2 border-border bg-transparent hover:bg-accent"
+                className="h-10 px-8 bg-foreground text-background hover:bg-foreground/90 font-mono font-medium rounded-sm"
               >
                 Subscribe
               </Button>
@@ -50,19 +49,22 @@ const Footer = () => {
       </ScrollReveal>
 
       {/* Footer Links Grid */}
-      <ScrollReveal>
-        <div className="container mx-auto max-w-4xl px-4">
-          <div className="grid grid-cols-2 md:grid-cols-5 border border-border">
+      <div className="border-y border-border">
+        <div className="container mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-5">
             {footerLinks.map((link, index) => (
               <a
                 key={link.label}
                 href={link.href}
                 target={link.href.startsWith("http") ? "_blank" : undefined}
                 rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                className={`flex items-center justify-center gap-2 py-6 text-sm hover:bg-card/50 transition-colors ${index < footerLinks.length - 1 ? "border-r border-border" : ""
-                  } ${index >= 2 && index < 5 ? "max-md:border-t max-md:border-border" : ""} ${index === 2 ? "max-md:border-r-0" : ""
-                  } ${index === 3 ? "max-md:border-r" : ""} ${index === 4 ? "max-md:col-span-2 max-md:border-r-0" : ""
-                  }`}
+                className={`flex items-center justify-center gap-2 py-8 text-sm hover:bg-muted/50 transition-colors font-mono border-border
+                  ${/* Mobile: Right border for odd items in 2-col grid (indices 0, 2) */ index % 2 === 0 && index !== 4 ? "max-md:border-r" : ""}
+                  ${/* Mobile: Bottom border for all except last row */ index < 4 ? "max-md:border-b" : ""}
+                  ${/* Desktop: Right border for all except last item */ index < 4 ? "md:border-r" : ""}
+                  ${/* Desktop: No bottom border */ "md:border-b-0"}
+                  ${/* Mobile: Last item spans full width */ index === 4 ? "max-md:col-span-2" : ""}
+                `}
               >
                 <span className="text-foreground">{link.label}</span>
                 {link.badge && (
@@ -72,21 +74,23 @@ const Footer = () => {
             ))}
           </div>
         </div>
-      </ScrollReveal>
+      </div>
 
       {/* Bottom Bar */}
-      <div className="container mx-auto max-w-4xl py-10 px-4">
-        <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-sm text-muted-foreground">
-          <span>©{new Date().getFullYear()} neuron</span>
-          {bottomLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className="hover:text-foreground transition-colors"
-            >
-              {link.label}
-            </a>
-          ))}
+      <div className="container mx-auto py-12 px-4">
+        <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-8 text-sm text-muted-foreground font-mono">
+          <span>© {new Date().getFullYear()} neuron</span>
+          <div className="flex gap-6">
+            {bottomLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                className="hover:text-foreground transition-colors"
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
         </div>
       </div>
     </footer>

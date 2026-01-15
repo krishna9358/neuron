@@ -1,0 +1,66 @@
+---
+title: Providers
+description: Supported AI providers and how to configure them.
+---
+
+## Supported Providers
+
+neuron supports multiple AI providers out of the box:
+
+- **OpenAI** - GPT-4, GPT-3.5-turbo
+- **Anthropic** - Claude 3 Opus, Claude 3 Sonnet
+- **Google** - Gemini Pro, Gemini Ultra
+- **Ollama** - Local models (Llama, Mistral, etc.)
+- **OpenRouter** - Access to 100+ models
+
+## OpenAI Setup
+
+1. Get your API key from [OpenAI](https://platform.openai.com)
+2. Set the environment variable:
+
+```bash
+export OPENAI_API_KEY="sk-..."
+```
+
+3. Configure in `.neuron.yaml`:
+
+```yaml
+provider: openai
+model: gpt-4
+```
+
+## Anthropic Setup
+
+1. Get your API key from [Anthropic](https://console.anthropic.com)
+2. Set the environment variable:
+
+```bash
+export ANTHROPIC_API_KEY="sk-ant-..."
+```
+
+3. Configure in `.neuron.yaml`:
+
+```yaml
+provider: anthropic
+model: claude-3-opus
+```
+
+## Using Local Models
+
+For local models with Ollama:
+
+```bash
+# Install Ollama
+brew install ollama
+
+# Pull a model
+ollama pull llama2
+
+# Configure neuron
+```
+
+```yaml
+provider: ollama
+model: llama2
+base_url: http://localhost:11434
+```

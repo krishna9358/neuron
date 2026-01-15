@@ -1,0 +1,52 @@
+---
+title: Intro
+description: Get started with neuron.
+---
+
+[neuron](https://github.com/neuron) is an open source AI coding agent. It's available as a terminal-based interface, desktop app, or IDE extension.
+
+## Overview
+
+neuron helps you write code faster by leveraging AI to understand your codebase, suggest changes, and execute commands.
+
+## Install
+
+```bash
+# Using npm
+npm install -g neuron
+
+# Using homebrew
+brew install neuron
+```
+
+## Configure
+
+Create a configuration file in your project root:
+
+```yaml
+# .neuron.yaml
+provider: openai
+model: gpt-4
+```
+
+## Initialize
+
+Run the following command to initialize neuron in your project:
+
+```bash
+neuron init
+```
+
+## Usage
+
+Start the interactive TUI:
+
+```bash
+neuron
+```
+
+Or run a single command:
+
+```bash
+neuron "Find the homepage button and make it blue"
+```
