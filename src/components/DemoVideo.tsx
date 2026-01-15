@@ -1,12 +1,14 @@
 import { useState } from "react";
-import { Play, Pause, Maximize2 } from "lucide-react";
+import Play from "lucide-react/dist/esm/icons/play";
+import Pause from "lucide-react/dist/esm/icons/pause";
+import Maximize2 from "lucide-react/dist/esm/icons/maximize-2";
 import { ScrollReveal } from "@/hooks/useScrollAnimation";
 
 const DemoVideo = () => {
   const [isPlaying, setIsPlaying] = useState(false);
 
   return (
-    <section className="py-24 px-4 border-t border-border">
+    <section className="py-24 px-4">
       <div className="container mx-auto max-w-6xl">
         <ScrollReveal>
           <div className="text-center mb-12">

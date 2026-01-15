@@ -1,13 +1,11 @@
-import {
-  Braces,
-  Layers,
-  Share2,
-  Sparkles,
-  MessageSquare,
-  Boxes,
-  Monitor,
-  ArrowRight
-} from "lucide-react";
+import Braces from "lucide-react/dist/esm/icons/braces";
+import Layers from "lucide-react/dist/esm/icons/layers";
+import Share2 from "lucide-react/dist/esm/icons/share-2";
+import Sparkles from "lucide-react/dist/esm/icons/sparkles";
+import MessageSquare from "lucide-react/dist/esm/icons/message-square";
+import Boxes from "lucide-react/dist/esm/icons/boxes";
+import Monitor from "lucide-react/dist/esm/icons/monitor";
+import ArrowRight from "lucide-react/dist/esm/icons/arrow-right";
 import { Button } from "@/components/ui/button";
 import { ScrollReveal } from "@/hooks/useScrollAnimation";
 
@@ -51,7 +49,7 @@ const features = [
 
 const FeatureGrid = () => {
   return (
-    <section id="features" className="py-24 px-4 border-t border-border">
+    <section id="features" className="py-24 px-4">
       <div className="container mx-auto max-w-6xl">
         <ScrollReveal>
           <div className="text-center mb-16">

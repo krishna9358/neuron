@@ -1,4 +1,7 @@
-import { Shield, Lock, Eye, Server } from "lucide-react";
+import Shield from "lucide-react/dist/esm/icons/shield";
+import Lock from "lucide-react/dist/esm/icons/lock";
+import Eye from "lucide-react/dist/esm/icons/eye";
+import Server from "lucide-react/dist/esm/icons/server";
 import { ScrollReveal } from "@/hooks/useScrollAnimation";
 
 const privacyFeatures = [
@@ -21,7 +24,7 @@ const privacyFeatures = [
 
 const PrivacySection = () => {
   return (
-    <section className="py-24 px-4 border-t border-border">
+    <section className="py-24 px-4">
       <div className="container mx-auto max-w-6xl">
         <div className="grid lg:grid-cols-2 gap-0 border border-border">
           {/* Left side - Main content */}

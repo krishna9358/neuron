@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Check, Copy } from "lucide-react";
+import Check from "lucide-react/dist/esm/icons/check";
+import Copy from "lucide-react/dist/esm/icons/copy";
 
 const installCommands = [
   { name: "curl", command: "curl -fsSL https://neuron.ai/install | bash" },
@@ -28,8 +29,8 @@ const InstallTabs = () => {
             key={item.name}
             onClick={() => setActiveTab(index)}
             className={`px-4 py-2 text-sm font-medium transition-colors relative ${activeTab === index
-                ? "text-foreground"
-                : "text-muted-foreground hover:text-foreground"
+              ? "text-foreground"
+              : "text-muted-foreground hover:text-foreground"
               }`}
           >
             {item.name}

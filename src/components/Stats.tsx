@@ -1,4 +1,6 @@
-import { Star, Users, GitCommit } from "lucide-react";
+import Star from "lucide-react/dist/esm/icons/star";
+import Users from "lucide-react/dist/esm/icons/users";
+import GitCommit from "lucide-react/dist/esm/icons/git-commit";
 import { ScrollReveal } from "@/hooks/useScrollAnimation";
 
 const stats = [
@@ -24,7 +26,7 @@ const stats = [
 
 const Stats = () => {
   return (
-    <section className="py-24 px-4 border-t border-border">
+    <section className="py-24 px-4">
       <div className="container mx-auto max-w-6xl">
         <ScrollReveal>
           <div className="text-center mb-16">

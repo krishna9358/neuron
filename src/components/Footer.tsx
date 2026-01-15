@@ -4,7 +4,7 @@ import { ScrollReveal } from "@/hooks/useScrollAnimation";
 
 const footerLinks = [
   { label: "GitHub", badge: "60K", href: "https://github.com" },
-  { label: "Docs", href: "#docs" },
+  { label: "Docs", href: "/docs" },
   { label: "Changelog", href: "#changelog" },
   { label: "Discord", href: "https://discord.gg/k_krishna." },
   { label: "X", href: "https://x.com" },
@@ -18,7 +18,7 @@ const bottomLinks = [
 
 const Footer = () => {
   return (
-    <footer className="border-t border-border">
+    <footer className="">
       {/* Newsletter Section */}
       <ScrollReveal>
         <div className="container mx-auto max-w-4xl py-16 px-4">

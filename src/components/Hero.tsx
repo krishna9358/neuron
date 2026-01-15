@@ -1,10 +1,11 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Download } from "lucide-react";
+import ArrowRight from "lucide-react/dist/esm/icons/arrow-right";
+import Download from "lucide-react/dist/esm/icons/download";
 import InstallTabs from "./InstallTabs";
 
 const Hero = () => {
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center pt-24 pb-16 px-4 overflow-hidden">
+    <section className="relative flex flex-col items-center justify-center py-20 px-4 overflow-hidden">
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-card/30 pointer-events-none" />
 
