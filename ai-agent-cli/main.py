@@ -11,7 +11,7 @@ async def main():
         "role": "user",
         "content": "what's up?"
     }]
-    async for event in client.chat_completion(messages=messages, stream=False):
+    async for event in client.chat_completion(messages=messages, stream=True):
         print(event)
     print("done")
 
