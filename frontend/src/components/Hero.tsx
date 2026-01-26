@@ -138,60 +138,7 @@ const Hero = () => {
       </div>
 
       {/* Demo Preview */}
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 0.9, ease: [0.23, 1, 0.32, 1] }}
-        className="relative z-10 w-full max-w-5xl mx-auto pb-20 px-4"
-      >
-        <div className="relative border border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-black/80 backdrop-blur-sm overflow-hidden rounded-xl shadow-2xl">
-          {/* Terminal header */}
-          <div className="flex items-center gap-2 px-4 py-3 border-b border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/50">
-            <div className="flex gap-1.5">
-              <div className="w-3 h-3 rounded-full bg-red-400/80" />
-              <div className="w-3 h-3 rounded-full bg-yellow-400/80" />
-              <div className="w-3 h-3 rounded-full bg-green-400/80" />
-            </div>
-            <span className="text-xs text-zinc-500 dark:text-zinc-500 font-mono ml-2">
-              neuron
-            </span>
-          </div>
-
-          {/* Terminal content */}
-          <div className="p-6 font-mono text-sm">
-            <div className="space-y-2">
-              <div className="flex items-start gap-2">
-                <span className="text-zinc-500">$</span>
-                <span className="text-zinc-900 dark:text-zinc-100">neuron</span>
-              </div>
-              <div className="text-zinc-500 dark:text-zinc-500 pl-4">
-                <p className="mb-2 flex items-center gap-2">
-                  <span className="text-green-500">✓</span> Loading project
-                  context...
-                </p>
-                <p className="mb-2 flex items-center gap-2">
-                  <span className="text-green-500">✓</span> Connected to Claude
-                  3.5 Sonnet
-                </p>
-                <p className="mb-2 flex items-center gap-2">
-                  <span className="text-green-500">✓</span> LSP initialized for
-                  TypeScript
-                </p>
-                <p className="text-zinc-900 dark:text-zinc-100">
-                  Ready! What would you like to build?
-                </p>
-              </div>
-              <div className="flex items-center gap-2 mt-4">
-                <span className="text-zinc-500">›</span>
-                <span className="text-zinc-900 dark:text-zinc-100">
-                  Create a beautiful landing page with dark mode
-                </span>
-                <span className="w-2 h-5 bg-zinc-900 dark:bg-zinc-100 animate-pulse" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </motion.div>
+      <div className="mb-20"></div>
     </section>
   );
 };

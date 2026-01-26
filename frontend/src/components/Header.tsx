@@ -201,15 +201,8 @@ const Header = ({ className, logo, ...props }: HeaderProps) => {
             </div>
             {/* Content Layer */}
             <div className="relative w-full h-full flex items-end justify-between pb-2 px-4 md:px-8">
-              {/* Desktop Left Nav */}
-              <nav className="hidden md:flex gap-8 mb-1 shrink-0 items-center">
-                {items.left.map((item) => (
-                  <NavLink key={item.label} {...item} />
-                ))}
-              </nav>
-
-              {/* Desktop Logo - centered */}
-              <div className="hidden md:flex shrink-0 items-center justify-center translate-x-2">
+                            {/* Desktop Logo - centered */}
+              <div className="hidden md:flex shrink-0 items-center justify-center translate-x-2 mr-10">
                 {logo || (
                   <Link to="/" className="transition-opacity hover:opacity-80">
                     <img
@@ -219,7 +212,16 @@ const Header = ({ className, logo, ...props }: HeaderProps) => {
                     />
                   </Link>
                 )}
-              </div>
+              </div> 
+
+              {/* Desktop Left Nav */}
+              <nav className="hidden md:flex gap-8 mb-1 shrink-0 items-center">
+                {items.left.map((item) => (
+                  <NavLink key={item.label} {...item} />
+                ))}
+              </nav>
+
+
 
               {/* Mobile Menu Button (Left) */}
               <button
