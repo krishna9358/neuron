@@ -1,105 +1,364 @@
-import { Button } from "@/components/ui/button";
-import Github from "lucide-react/dist/esm/icons/github";
-import Menu from "lucide-react/dist/esm/icons/menu";
-import X from "lucide-react/dist/esm/icons/x";
-import { useState } from "react";
+"use client";
 
-const Header = () => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+import { useState, useEffect, useCallback } from "react";
+import { Link } from "react-router-dom";
+import { Home, User, Menu, X, Sun, Moon } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { motion, AnimatePresence } from "framer-motion";
+import { useTheme } from "next-themes";
+import { useSound } from "@/hooks/use-sound";
+
+// Theme Toggle Component with Click Sound
+const ThemeToggle = () => {
+  const { theme, setTheme, resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  const playClick = useSound("/audio/click.wav", { volume: 0.3 });
+
+  const isDark = theme === "dark" || resolvedTheme === "dark";
+
+  const switchTheme = useCallback(() => {
+    playClick();
+    setTheme(isDark ? "light" : "dark");
+  }, [setTheme, isDark, playClick]);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return <div className="w-9 h-9" />;
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-md">
-      <div className="container mx-auto px-4">
-        <div className="flex h-16 items-center justify-between">
-          {/* Logo */}
-          <a href="/" className="flex items-center gap-2">
-            <img src="/logo.png" alt="Neuron" className="w-58 h-16" />
-          </a>
+    <button
+      onClick={switchTheme}
+      className="flex items-center justify-center w-9 h-9 rounded-full hover:bg-foreground/5 transition-colors text-foreground/70 hover:text-foreground"
+      aria-label="Toggle theme"
+    >
+      {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+    </button>
+  );
+};
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-6">
-            <a
-              href="#features"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Features
-            </a>
-            <a
-              href="https://github.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1"
-            >
-              <Github className="w-4 h-4" />
-              GitHub
-            </a>
-            <a
-              href="/docs"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Docs
-            </a>
-            <a
-              href="#enterprise"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Enterprise
-            </a>
-          </nav>
+// Helper component for navigation links
+const NavLink = ({
+  to,
+  icon: Icon,
+  label,
+}: {
+  to: string;
+  icon: React.ComponentType<{ className?: string }>;
+  label: string;
+}) => (
+  <Link
+    to={to}
+    className="group flex items-center gap-1.5 text-sm font-medium text-foreground/70 hover:text-foreground transition-colors whitespace-nowrap"
+  >
+    <Icon className="w-4 h-4 opacity-70 group-hover:opacity-100" />
+    <span>{label}</span>
+  </Link>
+);
 
-          {/* CTA Button */}
-          <div className="hidden md:flex items-center gap-3">
-            <Button variant="default" size="sm">
-              Free Download
-            </Button>
-          </div>
+// Simple Theme Toggle for Mobile
+const MobileThemeToggle = () => {
+  const { theme, setTheme, resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden p-2 text-muted-foreground hover:text-foreground"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+  useEffect(() => setMounted(true), []);
+
+  if (!mounted) return <div className="w-9 h-9" />;
+
+  const isDark = theme === "dark" || resolvedTheme === "dark";
+
+  return (
+    <button
+      onClick={() => setTheme(isDark ? "light" : "dark")}
+      className="flex items-center justify-center w-9 h-9 rounded-full hover:bg-foreground/5 transition-colors text-foreground/70 hover:text-foreground"
+      aria-label="Toggle theme"
+    >
+      {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+    </button>
+  );
+};
+
+interface HeaderProps extends React.HTMLAttributes<HTMLElement> {
+  logo?: React.ReactNode;
+}
+
+const Header = ({ className, logo, ...props }: HeaderProps) => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Navigation items configuration
+  const items = {
+    left: [
+      { label: "Features", to: "/#features", icon: Home },
+      { label: "Docs", to: "/docs", icon: User },
+    ],
+    right: [] as {
+      label: string;
+      to: string;
+      icon: React.ComponentType<{ className?: string }>;
+    }[],
+  };
+
+  return (
+    <>
+      <header
+        className={cn("fixed top-0 inset-x-0 z-50 h-16 flex px-0", className)}
+        {...props}
+      >
+        {/* Left Side Bar - Flexible width */}
+        <div className="flex-1 h-10 bg-white dark:bg-black z-20 relative min-w-0">
+          <svg
+            className="absolute inset-0 w-full h-full"
+            preserveAspectRatio="none"
           >
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
+            <line
+              x1="0"
+              y1="39.5"
+              x2="100%"
+              y2="39.5"
+              stroke="currentColor"
+              strokeOpacity={0.2}
+              strokeWidth={0.5}
+              className="text-foreground"
+            />
+            <line
+              x1="0"
+              y1="36.5"
+              x2="100%"
+              y2="36.5"
+              stroke="currentColor"
+              strokeOpacity={0.2}
+              strokeWidth={0.5}
+              className="text-foreground"
+            />
+          </svg>
         </div>
 
-        {/* Mobile Menu */}
-        {mobileMenuOpen && (
-          <div className="md:hidden py-4 border-t border-border animate-fade-in">
-            <nav className="flex flex-col gap-4">
-              <a
-                href="#features"
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-              >
-                Features
-              </a>
-              <a
-                href="https://github.com"
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-              >
-                GitHub
-              </a>
-              <a
-                href="/docs"
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Docs
-              </a>
-              <a
-                href="#enterprise"
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-              >
-                Enterprise
-              </a>
-              <Button variant="default" size="sm" className="w-fit">
-                Free Download
-              </Button>
-            </nav>
+        {/* Responsive Notch Container - 3 Slices */}
+        <div className="flex h-16 relative z-10 shrink-0 -ml-px">
+          {/* Left Slice (Corner) */}
+          <div className="w-[50px] h-full relative shrink-0">
+            {/* Glass Background */}
+            <div
+              className="absolute inset-0 bg-white dark:bg-black"
+              style={{
+                clipPath: "path('M0 0 H50 V64 C25 64 25 40 0 40 Z')",
+              }}
+            />
+            {/* Outlines */}
+            <svg
+              className="absolute inset-0 w-full h-full pointer-events-none"
+              viewBox="0 0 50 64"
+            >
+              <path
+                d="M0 39.5 C25 39.5 25 63.5 50 63.5"
+                fill="none"
+                stroke="currentColor"
+                strokeOpacity={0.2}
+                strokeWidth={0.5}
+                className="text-foreground"
+              />
+              <path
+                d="M0 36.5 C25 36.5 25 60.5 50 60.5"
+                fill="none"
+                stroke="currentColor"
+                strokeOpacity={0.2}
+                strokeWidth={0.5}
+                className="text-foreground"
+              />
+            </svg>
           </div>
+
+          {/* Center Slice (Flexible Content Area) */}
+          <div className="flex-1 h-full relative min-w-0 -ml-px">
+            {/* Background & Lines Layer */}
+            <div className="absolute inset-0 bg-white dark:bg-black">
+              <svg
+                className="absolute inset-0 w-full h-full pointer-events-none"
+                preserveAspectRatio="none"
+              >
+                <line
+                  x1="0"
+                  y1="63.5"
+                  x2="100%"
+                  y2="63.5"
+                  stroke="currentColor"
+                  strokeOpacity={0.2}
+                  strokeWidth={0.5}
+                  className="text-foreground"
+                />
+                <line
+                  x1="0"
+                  y1="60.5"
+                  x2="100%"
+                  y2="60.5"
+                  stroke="currentColor"
+                  strokeOpacity={0.2}
+                  strokeWidth={0.5}
+                  className="text-foreground"
+                />
+              </svg>
+            </div>
+            {/* Content Layer */}
+            <div className="relative w-full h-full flex items-end justify-between pb-2 px-4 md:px-8">
+              {/* Desktop Left Nav */}
+              <nav className="hidden md:flex gap-8 mb-1 shrink-0 items-center">
+                {items.left.map((item) => (
+                  <NavLink key={item.label} {...item} />
+                ))}
+              </nav>
+
+              {/* Desktop Logo - centered */}
+              <div className="hidden md:flex shrink-0 items-center justify-center translate-x-2">
+                {logo || (
+                  <Link to="/" className="transition-opacity hover:opacity-80">
+                    <img
+                      src="/logo.png"
+                      alt="Logo"
+                      className="h-8 w-auto dark:invert"
+                    />
+                  </Link>
+                )}
+              </div>
+
+              {/* Mobile Menu Button (Left) */}
+              <button
+                className="md:hidden mb-1 p-1 text-foreground/70 hover:text-foreground transition-colors"
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                aria-label="Toggle menu"
+              >
+                {isMobileMenuOpen ? (
+                  <X className="w-5 h-5" />
+                ) : (
+                  <Menu className="w-5 h-5" />
+                )}
+              </button>
+
+              {/* Logo (Center) - Mobile */}
+              <div className="md:hidden flex-1 flex justify-center shrink-0 mx-2 md:mx-4 mt-1">
+                {logo || (
+                  <Link to="/" className="transition-opacity hover:opacity-80">
+                    <img
+                      src="/logo.png"
+                      alt="Logo"
+                      className="h-8 w-auto dark:invert"
+                    />
+                  </Link>
+                )}
+              </div>
+
+              {/* Desktop Right Nav */}
+              <nav className="hidden md:flex gap-8 items-center shrink-0 -mb-1">
+                {items.right.map((item) => (
+                  <NavLink key={item.label} {...item} />
+                ))}
+
+                <div className="flex gap-4 pl-4 border-l border-foreground/10 shrink-0 items-center">
+                  <ThemeToggle />
+                </div>
+              </nav>
+
+              {/* Mobile Right Actions */}
+              <div className="md:hidden flex items-center gap-2 mb-1">
+                <MobileThemeToggle />
+              </div>
+            </div>
+          </div>
+
+          {/* Right Slice (Corner) */}
+          <div className="w-[50px] h-full relative shrink-0 -ml-px">
+            {/* Glass Background */}
+            <div
+              className="absolute inset-0 bg-white dark:bg-black"
+              style={{
+                clipPath: "path('M0 0 H50 V40 C25 40 25 64 0 64 Z')",
+              }}
+            />
+            {/* Outlines */}
+            <svg
+              className="absolute inset-0 w-full h-full pointer-events-none"
+              viewBox="0 0 50 64"
+            >
+              <path
+                d="M0 63.5 C25 63.5 25 39.5 50 39.5"
+                fill="none"
+                stroke="currentColor"
+                strokeOpacity={0.2}
+                strokeWidth={0.5}
+                className="text-foreground"
+              />
+              <path
+                d="M0 60.5 C25 60.5 25 36.5 50 36.5"
+                fill="none"
+                stroke="currentColor"
+                strokeOpacity={0.2}
+                strokeWidth={0.5}
+                className="text-foreground"
+              />
+            </svg>
+          </div>
+        </div>
+
+        {/* Right Side Bar - Flexible width */}
+        <div className="flex-1 h-10 bg-white dark:bg-black z-20 relative min-w-0 -ml-px">
+          <svg
+            className="absolute inset-0 w-full h-full"
+            preserveAspectRatio="none"
+          >
+            <line
+              x1="0"
+              y1="39.5"
+              x2="100%"
+              y2="39.5"
+              stroke="currentColor"
+              strokeOpacity={0.2}
+              strokeWidth={0.5}
+              className="text-foreground"
+            />
+            <line
+              x1="0"
+              y1="36.5"
+              x2="100%"
+              y2="36.5"
+              stroke="currentColor"
+              strokeOpacity={0.2}
+              strokeWidth={0.5}
+              className="text-foreground"
+            />
+          </svg>
+        </div>
+      </header>
+
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-x-0 top-16 z-40 bg-neutral-50 dark:bg-neutral-900 border-b border-foreground/5 p-4 md:hidden shadow-lg"
+          >
+            <nav className="flex flex-col gap-2">
+              {/* Combine all items */}
+              {[...items.left, ...items.right].map((item) => (
+                <Link
+                  key={item.label}
+                  to={item.to}
+                  className="flex items-center gap-3 p-3 rounded-lg hover:bg-foreground/5 transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  <item.icon className="w-5 h-5 opacity-70" />
+                  <span className="font-medium text-foreground/90">
+                    {item.label}
+                  </span>
+                </Link>
+              ))}
+            </nav>
+          </motion.div>
         )}
-      </div>
-    </header>
+      </AnimatePresence>
+    </>
   );
 };
 
