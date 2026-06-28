@@ -109,8 +109,8 @@ class LLMClient:
         self, client: AsyncOpenAI, kwargs: dict[str, Any]
     ) -> StreamEvent:
         # it's configuration from the open router
-        # **kwargs is used to pass the arguments to the function which converts dict into function parameters.
-        # **Kwargs is dictionary of named arguments.
+        # "**kwargs" is used to pass the arguments to the function which converts dict into function parameters.
+        # "**Kwargs" is dictionary of named arguments.
         response = await client.chat.completions.create(**kwargs)
         choice = response.choices[0]
         message = choice.message

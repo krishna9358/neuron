@@ -10,32 +10,32 @@ const faqs = [
   {
     question: "What is neuron?",
     answer:
-      "neuron is an open source AI coding agent that helps you write code in your terminal, IDE, or desktop. It connects to various AI models to provide intelligent code assistance, debugging help, and automated coding tasks.",
+      "neuron is an open source AI agent that executes tasks using built-in tools. It can read, write, and edit files, run shell commands, search the web, and manage memory — all through a conversational interface in your terminal.",
   },
   {
-    question: "How do I use neuron?",
+    question: "What tools does neuron have?",
     answer:
-      "You can install neuron using curl, npm, bun, brew, or paru. Once installed, simply run 'neuron' in your terminal to start using it. The agent will automatically detect your project context and connect to your preferred AI model.",
+      "neuron includes 12+ built-in tools: read_file, write_file, edit_file, list_dir, grep, glob, shell execution, web_fetch, web_search, memory, and todos. You can also extend it with MCP servers for custom tooling.",
   },
   {
-    question: "Do I need extra AI subscriptions to use neuron?",
+    question: "What are approval policies?",
     answer:
-      "No! neuron includes free models out of the box. However, if you want to use premium models like Claude Pro or ChatGPT Plus, you can connect your existing subscriptions for enhanced capabilities.",
+      "neuron supports 4 approval policies to control tool execution safety: 'on-request' (ask before each action), 'auto' (auto-approve safe operations), 'never' (block all mutations), and 'yolo' (auto-approve everything). It also detects and blocks dangerous commands.",
   },
   {
-    question: "Can I use my existing AI subscriptions with neuron?",
+    question: "What is MCP and how does it work?",
     answer:
-      "Yes, absolutely! You can log in with your Anthropic account to use Claude Pro/Max, or with your OpenAI account to use ChatGPT Plus/Pro. neuron also supports 75+ other LLM providers through Models.dev.",
+      "MCP (Model Context Protocol) lets you connect external tool servers to neuron. This means you can add custom tools from any MCP-compatible server. neuron supports both stdio and HTTP/SSE transport protocols.",
   },
   {
-    question: "Can I only use neuron in the terminal?",
+    question: "Can neuron manage long-running sessions?",
     answer:
-      "No, neuron is available as a terminal interface, desktop application (available in beta for macOS, Windows, and Linux), and as IDE extensions. Choose whatever workflow suits you best.",
+      "Yes. neuron supports full session management including save, resume, checkpointing, and restore. It also automatically compresses context when approaching token limits and prunes tool outputs to manage context size.",
   },
   {
-    question: "Is neuron really free?",
+    question: "What are subagents?",
     answer:
-      "Yes, neuron is completely free and open source. The core functionality and free AI models are available to everyone. Premium features that require paid AI subscriptions are optional.",
+      "Subagents are specialized agents that neuron can delegate tasks to. Built-in subagents include a codebase investigator and code reviewer. You can also define custom subagents with specific tools and limits.",
   },
 ];
 

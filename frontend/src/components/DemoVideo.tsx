@@ -1,11 +1,16 @@
-import { useState } from "react";
-import Play from "lucide-react/dist/esm/icons/play";
-import Pause from "lucide-react/dist/esm/icons/pause";
-import Maximize2 from "lucide-react/dist/esm/icons/maximize-2";
+import { useRef, useState, useEffect } from "react";
+import { Player, PlayerRef } from "@remotion/player";
+import { DemoComposition } from "@/remotion/Composition";
 import { ScrollReveal } from "@/hooks/useScrollAnimation";
+import Maximize2 from "lucide-react/dist/esm/icons/maximize-2";
 
 const DemoVideo = () => {
-  const [isPlaying, setIsPlaying] = useState(false);
+  const playerRef = useRef<PlayerRef>(null);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   return (
     <section className="py-24 px-4">
@@ -22,9 +27,9 @@ const DemoVideo = () => {
         </ScrollReveal>
 
         <ScrollReveal delay={200}>
-          <div className="relative border border-border bg-card overflow-hidden group">
+          <div className="relative border border-border bg-card overflow-hidden group rounded-xl shadow-2xl">
             {/* Video header bar */}
-            <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-muted/30">
+            <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-muted/30 z-10 relative">
               <div className="flex items-center gap-3">
                 <div className="flex gap-1.5">
                   <div className="w-3 h-3 rounded-full bg-destructive/60" />
@@ -32,104 +37,37 @@ const DemoVideo = () => {
                   <div className="w-3 h-3 rounded-full bg-muted-foreground/40" />
                 </div>
                 <span className="text-xs text-muted-foreground font-mono">
-                  demo.mp4
+                  demo-mode.tsx
                 </span>
               </div>
-              <button className="p-1.5 text-muted-foreground hover:text-foreground transition-colors">
+              <button
+                onClick={() => playerRef.current?.toggle()}
+                className="p-1.5 text-muted-foreground hover:text-foreground transition-colors"
+              >
                 <Maximize2 className="w-4 h-4" />
               </button>
             </div>
 
-            {/* Video placeholder with terminal animation */}
-            <div className="relative aspect-video bg-background">
-              {/* Animated terminal content */}
-              <div className="absolute inset-0 p-6 md:p-10 font-mono text-sm overflow-hidden">
-                <div className="space-y-3 animate-fade-in">
-                  <div className="flex items-center gap-2 text-muted-foreground">
-                    <span className="text-foreground">$</span>
-                    <span className="text-foreground typing-animation">neuron "Add a dark mode toggle to the header"</span>
-                  </div>
-
-                  <div className="pl-4 space-y-2 text-muted-foreground">
-                    <p className="animate-fade-in" style={{ animationDelay: "0.5s" }}>
-                      <span className="text-chart-3">→</span> Analyzing project structure...
-                    </p>
-                    <p className="animate-fade-in" style={{ animationDelay: "1s" }}>
-                      <span className="text-chart-3">→</span> Found Header.tsx component
-                    </p>
-                    <p className="animate-fade-in" style={{ animationDelay: "1.5s" }}>
-                      <span className="text-chart-3">→</span> Generating dark mode implementation...
-                    </p>
-                  </div>
-
-                  <div className="mt-6 p-4 border border-border bg-card/50 animate-fade-in" style={{ animationDelay: "2s" }}>
-                    <div className="flex items-center gap-2 mb-3 text-xs text-muted-foreground">
-                      <span className="px-2 py-0.5 bg-muted text-foreground">DIFF</span>
-                      <span>src/components/Header.tsx</span>
-                    </div>
-                    <div className="space-y-1 text-xs">
-                      <p className="text-chart-3">+ import {"{"} Moon, Sun {"}"} from "lucide-react";</p>
-                      <p className="text-chart-3">+ import {"{"} useTheme {"}"} from "next-themes";</p>
-                      <p className="text-muted-foreground">  </p>
-                      <p className="text-chart-3">+ const {"{"} theme, setTheme {"}"} = useTheme();</p>
-                      <p className="text-chart-3">+ </p>
-                      <p className="text-chart-3">+ {"<button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>"}</p>
-                      <p className="text-chart-3">+   {"{theme === 'dark' ? <Sun /> : <Moon />}"}</p>
-                      <p className="text-chart-3">+ {"</button>"}</p>
-                    </div>
-                  </div>
-
-                  <div className="mt-4 animate-fade-in" style={{ animationDelay: "2.5s" }}>
-                    <p className="text-foreground">
-                      <span className="text-chart-3">✓</span> Changes applied successfully. Dark mode toggle added to header.
-                    </p>
-                  </div>
-
-                  <div className="flex items-center gap-2 mt-4 animate-fade-in" style={{ animationDelay: "3s" }}>
-                    <span className="text-muted-foreground">›</span>
-                    <span className="w-2 h-4 bg-foreground animate-pulse" />
-                  </div>
-                </div>
-              </div>
-
-              {/* Play overlay */}
-              <div
-                className={`absolute inset-0 flex items-center justify-center bg-background/80 backdrop-blur-sm transition-opacity duration-300 ${isPlaying ? "opacity-0 pointer-events-none" : "opacity-100"
-                  }`}
-              >
-                <button
-                  onClick={() => setIsPlaying(true)}
-                  className="w-20 h-20 flex items-center justify-center border border-border bg-card hover:bg-accent transition-colors group-hover:scale-105 transition-transform duration-300"
-                >
-                  <Play className="w-8 h-8 text-foreground ml-1" />
-                </button>
-              </div>
-
-              {/* Controls bar */}
-              <div className="absolute bottom-0 left-0 right-0 flex items-center gap-4 px-4 py-3 bg-gradient-to-t from-background to-transparent">
-                <button
-                  onClick={() => setIsPlaying(!isPlaying)}
-                  className="p-2 text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  {isPlaying ? (
-                    <Pause className="w-5 h-5" />
-                  ) : (
-                    <Play className="w-5 h-5" />
-                  )}
-                </button>
-
-                {/* Progress bar */}
-                <div className="flex-1 h-1 bg-border rounded-full overflow-hidden">
-                  <div
-                    className={`h-full bg-foreground transition-all duration-[3000ms] ease-linear ${isPlaying ? "w-full" : "w-0"
-                      }`}
-                  />
-                </div>
-
-                <span className="text-xs text-muted-foreground font-mono">
-                  {isPlaying ? "0:03" : "0:00"} / 0:03
-                </span>
-              </div>
+            {/* Remotion Player */}
+            <div className="relative aspect-video bg-black w-full">
+              {isMounted && (
+                <Player
+                  ref={playerRef}
+                  component={DemoComposition}
+                  durationInFrames={650}
+                  fps={30}
+                  compositionWidth={1280}
+                  compositionHeight={720}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                  }}
+                  controls
+                  autoPlay
+                  loop
+                  className="w-full h-full"
+                />
+              )}
             </div>
           </div>
         </ScrollReveal>
@@ -138,13 +76,13 @@ const DemoVideo = () => {
         <ScrollReveal delay={400}>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
             {[
-              { label: "Real-time code changes", value: "Instant" },
-              { label: "Context-aware suggestions", value: "Smart" },
-              { label: "Multi-file editing", value: "Powerful" },
+              { label: "Tool-assisted reasoning", value: "read, write, grep, shell" },
+              { label: "Multi-turn conversations", value: "Context-aware" },
+              { label: "Session checkpointing", value: "Save & resume" },
             ].map((item, index) => (
               <div
                 key={item.label}
-                className="flex items-center justify-between p-4 border border-border bg-card/30"
+                className="flex items-center justify-between p-4 border border-border bg-card/30 rounded-lg hover:bg-card/50 transition-colors"
               >
                 <span className="text-sm text-muted-foreground">{item.label}</span>
                 <span className="text-sm font-medium text-foreground">{item.value}</span>

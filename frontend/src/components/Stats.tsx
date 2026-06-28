@@ -1,25 +1,25 @@
-import Star from "lucide-react/dist/esm/icons/star";
-import Users from "lucide-react/dist/esm/icons/users";
-import GitCommit from "lucide-react/dist/esm/icons/git-commit";
+import Wrench from "lucide-react/dist/esm/icons/wrench";
+import Shield from "lucide-react/dist/esm/icons/shield";
+import Plug from "lucide-react/dist/esm/icons/plug";
 import { ScrollReveal } from "@/hooks/useScrollAnimation";
 
 const stats = [
   {
-    icon: Star,
-    value: "60K",
-    label: "GitHub Stars",
+    icon: Wrench,
+    value: "12+",
+    label: "Built-in Tools",
     figure: "Fig 1.",
   },
   {
-    icon: Users,
-    value: "500",
-    label: "Contributors",
+    icon: Shield,
+    value: "4",
+    label: "Approval Policies",
     figure: "Fig 2.",
   },
   {
-    icon: GitCommit,
-    value: "650,000",
-    label: "Monthly Devs",
+    icon: Plug,
+    value: "2",
+    label: "MCP Transports",
     figure: "Fig 3.",
   },
 ];
@@ -31,13 +31,15 @@ const Stats = () => {
         <ScrollReveal>
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              The open source AI coding agent
+              Built to ship, not just chat
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              With over <span className="text-foreground font-semibold">60,000</span> GitHub stars,{" "}
-              <span className="text-foreground font-semibold">500</span> contributors, and over{" "}
-              <span className="text-foreground font-semibold">6,500</span> commits, neuron is used and trusted by over{" "}
-              <span className="text-foreground font-semibold">650,000</span> developers every month.
+              neuron comes with{" "}
+              <span className="text-foreground font-semibold">12+ built-in tools</span> for file operations,
+              shell execution, web access, and memory.{" "}
+              <span className="text-foreground font-semibold">4 approval policies</span> give you full control,
+              and{" "}
+              <span className="text-foreground font-semibold">MCP support</span> lets you connect external tool servers.
             </p>
           </div>
         </ScrollReveal>
@@ -80,3 +82,4 @@ const Stats = () => {
 };
 
 export default Stats;
+

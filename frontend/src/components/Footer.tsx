@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ScrollReveal } from "@/hooks/useScrollAnimation";
 
 const footerLinks = [
-  { label: "GitHub", badge: "60K", href: "https://github.com" },
+  { label: "GitHub", href: "https://github.com" },
   { label: "Docs", href: "/docs" },
   { label: "Changelog", href: "#changelog" },
   { label: "Discord", href: "https://discord.gg/k_krishna" },

@@ -15,11 +15,11 @@ import InstallTabs from "./InstallTabs";
 
 // Rotating taglines for the hero
 const heroTaglines = [
-  "Build faster with precision",
-  "Ship code with confidence",
-  "Debug smarter not harder",
-  "Create without limits",
-  "Code at the speed of thought",
+  "Execute tasks with tools",
+  "Manage multi-turn conversations",
+  "Automate with specialized subagents",
+  "Connect to MCP servers",
+  "Build complex feedback loops",
 ];
 
 const Hero = () => {
@@ -70,7 +70,7 @@ const Hero = () => {
               <Sparkles className="w-3 h-3 text-zinc-700 dark:text-zinc-300" />
             </motion.div>
             <span className="tracking-widest uppercase text-zinc-500 dark:text-zinc-400 z-10">
-              Desktop App Available
+             Agent Harness
             </span>
           </motion.div>
 
@@ -103,8 +103,7 @@ const Hero = () => {
             transition={{ duration: 0.8, delay: 0.6, ease: [0.23, 1, 0.32, 1] }}
             className="text-lg md:text-xl text-zinc-600 dark:text-zinc-400 max-w-2xl mx-auto leading-relaxed mb-10 font-light"
           >
-            Free models included or connect any model from any provider,
-            including Claude, GPT, Gemini and more.
+            An AI agent that executes tasks using built-in tools, manages complex conversations, and delegates to specialized subagents.
           </motion.p>
 
           {/* Install tabs */}
